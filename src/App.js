@@ -1,25 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Reactswipes from 'react-swipes';
 
 class App extends Component {
   render() {
+    let opt = {
+      distance: 250,
+      currentPoint: 1,
+      autoPlay: false,
+      swTouchstart: e => {},
+      swTouchmove: e => {},
+      swTouchend: e => {
+        let data = {
+          moved: e.moved,
+          originalPoint: e.originalPoint,
+          newPoint: e.newPoint,
+          cancelled: e.cancelled
+        };
+        console.log(data)
+      }
+    }
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1>swipes</h1>
+        <div className="view-area">
+          <div className="swipe-area">
+            <Reactswipes className="card-slide" options={opt}>
+              {[1,2,3,4,5,6].map((num, index) => {
+                return (
+                  <div className="item" key={index}>
+                    {num}
+                  </div>
+                )
+              })}
+            </Reactswipes>
+          </div>
+        </div>
       </div>
     );
   }
